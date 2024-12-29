@@ -1,15 +1,20 @@
 package main
 
 import (
-    "fmt"
-    "net/http"
+	"log"
+	"net/http"
+	"github.com/JalalA984/apptrak/internal/handlers"
 )
 
 func main() {
-    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-        fmt.Fprintln(w, "Welcome to AppTrak!")
-    })
+	port := ":8080"
+	mux := http.NewServeMux()
 
-    fmt.Println("Server running on http://localhost:8080")
-    http.ListenAndServe(":8080", nil)
+	mux.HandleFunc("/", handlers.Home)
+
+	log.Print("Application started on ", port)
+
+	err := http.ListenAndServe(port, mux)
+
+	log.Fatal(err)
 }
