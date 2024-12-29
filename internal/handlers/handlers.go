@@ -6,6 +6,10 @@ import (
 	"text/template"
 )
 
+func ping (res http.ResponseWriter, _ *http.Request) {
+	res.Write([]byte("OK"))
+}
+
 func Home(res http.ResponseWriter, req *http.Request) {
 	if req.URL.Path != "/" {
 		http.NotFound(res, req)
