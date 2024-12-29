@@ -27,3 +27,36 @@ func Home(res http.ResponseWriter, req *http.Request) {
 	}
 }
 
+
+func Login(res http.ResponseWriter, req *http.Request) {
+	templateSet, err := template.ParseFiles("./internal/templates/login.tmpl.html")
+	if err != nil {
+		log.Print(err.Error())
+		http.Error(res, "Internal Server Error", 500)
+		return
+	}
+
+	err = templateSet.Execute(res, nil)
+	if err != nil {
+		log.Print(err.Error())
+		http.Error(res, "Internal Server Error", 500)
+		return
+	}
+}
+
+
+func Register(res http.ResponseWriter, req *http.Request) {
+	templateSet, err := template.ParseFiles("./internal/templates/register.tmpl.html")
+	if err != nil {
+		log.Print(err.Error())
+		http.Error(res, "Internal Server Error", 500)
+		return
+	}
+
+	err = templateSet.Execute(res, nil)
+	if err != nil {
+		log.Print(err.Error())
+		http.Error(res, "Internal Server Error", 500)
+		return
+	}
+}
