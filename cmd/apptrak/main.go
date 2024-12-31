@@ -10,6 +10,9 @@ func main() {
 	port := ":8080"
 	mux := http.NewServeMux()
 
+	fileServer := http.FileServer(http.Dir("./public/"))
+	mux.Handle("/public/", http.StripPrefix("/public", fileServer))
+
 	mux.HandleFunc("/", handlers.Home)
 	mux.HandleFunc("/login", handlers.Login)
 	mux.HandleFunc("/register", handlers.Register)
