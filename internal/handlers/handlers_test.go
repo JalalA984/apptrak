@@ -27,8 +27,8 @@ func TestPing(t *testing.T) {
 	res := responseRecorder.Result()
 
 	if res.StatusCode != http.StatusOK {
-        t.Errorf("Expected %v, got %v", http.StatusOK, res.StatusCode)
-    }
+		t.Errorf("Expected %v, got %v", http.StatusOK, res.StatusCode)
+	}
 
 	defer res.Body.Close()
 	body, err := io.ReadAll(res.Body)
@@ -38,7 +38,7 @@ func TestPing(t *testing.T) {
 	bytes.TrimSpace(body)
 
 	if string(body) != "OK" {
-        t.Errorf("Expected %v, got %v", "OK", string(body))
-    }
+		t.Errorf("Expected %v, got %v", "OK", string(body))
+	}
 
 }

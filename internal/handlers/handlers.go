@@ -6,7 +6,7 @@ import (
 	"text/template"
 )
 
-func ping (res http.ResponseWriter, _ *http.Request) {
+func ping(res http.ResponseWriter, _ *http.Request) {
 	res.Write([]byte("OK"))
 }
 
@@ -16,7 +16,7 @@ func Home(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	files := []string {
+	files := []string{
 		"./internal/templates/base.tmpl.html",
 		"./internal/templates/components/navbar.tmpl.html",
 		"./internal/templates/home.tmpl.html",
@@ -37,9 +37,8 @@ func Home(res http.ResponseWriter, req *http.Request) {
 	}
 }
 
-
 func Login(res http.ResponseWriter, req *http.Request) {
-	files := []string {
+	files := []string{
 		"./internal/templates/base.tmpl.html",
 		"./internal/templates/login.tmpl.html",
 	}
@@ -59,9 +58,8 @@ func Login(res http.ResponseWriter, req *http.Request) {
 	}
 }
 
-
 func Register(res http.ResponseWriter, req *http.Request) {
-	files := []string {
+	files := []string{
 		"./internal/templates/base.tmpl.html",
 		"./internal/templates/register.tmpl.html",
 	}

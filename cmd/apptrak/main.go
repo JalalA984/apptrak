@@ -1,9 +1,9 @@
 package main
 
 import (
+	"github.com/JalalA984/apptrak/internal/handlers"
 	"log"
 	"net/http"
-	"github.com/JalalA984/apptrak/internal/handlers"
 )
 
 func main() {
@@ -16,7 +16,7 @@ func main() {
 	mux.HandleFunc("/", handlers.Home)
 	mux.HandleFunc("/login", handlers.Login)
 	mux.HandleFunc("/register", handlers.Register)
-	
+
 	log.Print("Application started on ", port)
 	err := http.ListenAndServe(port, mux)
 	log.Fatal(err)
