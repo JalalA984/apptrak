@@ -16,14 +16,19 @@ func Home(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	templateSet, err := template.ParseFiles("./internal/templates/home.tmpl.html")
+	files := []string {
+		"./internal/templates/base.tmpl.html",
+		"./internal/templates/home.tmpl.html",
+	}
+
+	templateSet, err := template.ParseFiles(files...)
 	if err != nil {
 		log.Print(err.Error())
 		http.Error(res, "Internal Server Error", 500)
 		return
 	}
 
-	err = templateSet.Execute(res, nil)
+	err = templateSet.ExecuteTemplate(res, "base", nil)
 	if err != nil {
 		log.Print(err.Error())
 		http.Error(res, "Internal Server Error", 500)
@@ -33,14 +38,19 @@ func Home(res http.ResponseWriter, req *http.Request) {
 
 
 func Login(res http.ResponseWriter, req *http.Request) {
-	templateSet, err := template.ParseFiles("./internal/templates/login.tmpl.html")
+	files := []string {
+		"./internal/templates/base.tmpl.html",
+		"./internal/templates/login.tmpl.html",
+	}
+
+	templateSet, err := template.ParseFiles(files...)
 	if err != nil {
 		log.Print(err.Error())
 		http.Error(res, "Internal Server Error", 500)
 		return
 	}
 
-	err = templateSet.Execute(res, nil)
+	err = templateSet.ExecuteTemplate(res, "base", nil)
 	if err != nil {
 		log.Print(err.Error())
 		http.Error(res, "Internal Server Error", 500)
@@ -50,14 +60,19 @@ func Login(res http.ResponseWriter, req *http.Request) {
 
 
 func Register(res http.ResponseWriter, req *http.Request) {
-	templateSet, err := template.ParseFiles("./internal/templates/register.tmpl.html")
+	files := []string {
+		"./internal/templates/base.tmpl.html",
+		"./internal/templates/register.tmpl.html",
+	}
+
+	templateSet, err := template.ParseFiles(files...)
 	if err != nil {
 		log.Print(err.Error())
 		http.Error(res, "Internal Server Error", 500)
 		return
 	}
 
-	err = templateSet.Execute(res, nil)
+	err = templateSet.ExecuteTemplate(res, "base", nil)
 	if err != nil {
 		log.Print(err.Error())
 		http.Error(res, "Internal Server Error", 500)
