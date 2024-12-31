@@ -18,6 +18,7 @@ func Home(res http.ResponseWriter, req *http.Request) {
 
 	files := []string {
 		"./internal/templates/base.tmpl.html",
+		"./internal/templates/components/navbar.tmpl.html",
 		"./internal/templates/home.tmpl.html",
 	}
 
