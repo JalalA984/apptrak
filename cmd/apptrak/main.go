@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/JalalA984/apptrak/internal/handlers"
+	"github.com/JalalA984/apptrak/pkg/config"
 )
 
 func main() {
@@ -16,12 +17,16 @@ func main() {
 	infoLog := log.New(os.Stdout, "[INFO]\t", log.Ldate|log.Ltime)
 	errorLog := log.New(os.Stderr, "[ERROR]\t", log.Ldate|log.Ltime|log.Llongfile)
 
+	appConfig := &config.Application{
+		ErrorLog: errorLog,
+	}
+
 	mux := http.NewServeMux()
 
 	fileServer := http.FileServer(http.Dir("./public/"))
 	mux.Handle("/public/", http.StripPrefix("/public", fileServer))
 
-	mux.HandleFunc("/", handlers.Home)
+	mux.HandleFunc("/", handlers.Home(appConfig))
 	mux.HandleFunc("/login", handlers.Login)
 	mux.HandleFunc("/register", handlers.Register)
 
