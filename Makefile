@@ -4,7 +4,11 @@ APP_PATH = ./cmd/apptrak
 
 default: exc
 
-fmt:
+deps:
+	go mod tidy
+	go mod download
+
+fmt: deps
 	go fmt ./...
 
 vet: fmt
@@ -22,7 +26,3 @@ exc: build
 clean:
 	go clean
 	rm -f $(APP_PATH)/app
-
-deps:
-	go mod tidy
-	go mod download
