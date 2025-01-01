@@ -25,4 +25,4 @@ go.work.sum
 .env
 
 # MY GO app build
-cmd/apptrak/app
+cmd/apptrak/app.exe
