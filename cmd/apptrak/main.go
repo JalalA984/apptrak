@@ -4,6 +4,7 @@ import (
 	"flag"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/JalalA984/apptrak/internal/handlers"
 )
@@ -11,6 +12,9 @@ import (
 func main() {
 	port := flag.String("port", ":5000", "HTTP Network Address")
 	flag.Parse()
+
+	infoLog := log.New(os.Stdout, "[INFO]\t", log.Ldate|log.Ltime)
+	errorLog := log.New(os.Stderr, "[ERROR]\t", log.Ldate|log.Ltime|log.Lshortfile)
 
 	mux := http.NewServeMux()
 
@@ -21,7 +25,7 @@ func main() {
 	mux.HandleFunc("/login", handlers.Login)
 	mux.HandleFunc("/register", handlers.Register)
 
-	log.Printf("Application started on %s", *port)
+	infoLog.Printf("Application started on %s", *port)
 	err := http.ListenAndServe(*port, mux)
-	log.Fatal(err)
+	errorLog.Fatal(err)
 }
