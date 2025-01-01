@@ -128,22 +128,6 @@ input:focus {
     box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
 }
 
-/* Animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-div, form, nav {
-    animation: fadeIn 0.8s ease-in-out;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
     h1 {
