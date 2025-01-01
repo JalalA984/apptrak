@@ -1,13 +1,17 @@
 package main
 
 import (
-	"github.com/JalalA984/apptrak/internal/handlers"
+	"flag"
 	"log"
 	"net/http"
+
+	"github.com/JalalA984/apptrak/internal/handlers"
 )
 
 func main() {
-	port := ":8080"
+	port := flag.String("port", ":5000", "HTTP Network Address")
+	flag.Parse()
+
 	mux := http.NewServeMux()
 
 	fileServer := http.FileServer(http.Dir("./public/"))
@@ -17,7 +21,7 @@ func main() {
 	mux.HandleFunc("/login", handlers.Login)
 	mux.HandleFunc("/register", handlers.Register)
 
-	log.Print("Application started on ", port)
-	err := http.ListenAndServe(port, mux)
+	log.Printf("Application started on %s", *port)
+	err := http.ListenAndServe(*port, mux)
 	log.Fatal(err)
 }

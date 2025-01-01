@@ -21,7 +21,7 @@ build: test
 	go build -o $(APP_PATH)/app $(APP_PATH)
 
 exc: build
-	$(APP_PATH)/app
+	$(APP_PATH)/app -port=":8080"
 
 clean:
 	go clean
