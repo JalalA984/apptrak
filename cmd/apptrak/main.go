@@ -27,8 +27,8 @@ func main() {
 	mux.Handle("/public/", http.StripPrefix("/public", fileServer))
 
 	mux.HandleFunc("/", handlers.Home(appConfig))
-	mux.HandleFunc("/login", handlers.Login)
-	mux.HandleFunc("/register", handlers.Register)
+	mux.HandleFunc("/login", handlers.Login(appConfig))
+	mux.HandleFunc("/register", handlers.Register(appConfig))
 
 	server := &http.Server{
 		Addr:     *port,
