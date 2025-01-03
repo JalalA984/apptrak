@@ -11,9 +11,9 @@ func ping(res http.ResponseWriter, _ *http.Request) {
 	res.Write([]byte("OK"))
 }
 
-// Closure based dependency injection
-func Home(app *config.Application) http.HandlerFunc { // Home handler depends on app config
-	return func(res http.ResponseWriter, req *http.Request) { // return the closure based function that is our actual handler function
+// Home handler with closure-based dependency injection
+func Home(app *config.Application) http.HandlerFunc {
+	return func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.Path != "/" {
 			http.NotFound(res, req)
 			return
@@ -27,20 +27,18 @@ func Home(app *config.Application) http.HandlerFunc { // Home handler depends on
 
 		templateSet, err := template.ParseFiles(files...)
 		if err != nil {
-			app.ErrorLog.Print(err.Error())
-			http.Error(res, "Internal Server Error", 500)
+			serverError(app, res, err) // Use serverError from helpers.go
 			return
 		}
 
 		err = templateSet.ExecuteTemplate(res, "base", nil)
 		if err != nil {
-			app.ErrorLog.Print(err.Error())
-			http.Error(res, "Internal Server Error", 500)
-			return
+			serverError(app, res, err) // Use serverError from helpers.go
 		}
 	}
 }
 
+// Login handler
 func Login(app *config.Application) http.HandlerFunc {
 	return func(res http.ResponseWriter, req *http.Request) {
 		files := []string{
@@ -50,20 +48,18 @@ func Login(app *config.Application) http.HandlerFunc {
 
 		templateSet, err := template.ParseFiles(files...)
 		if err != nil {
-			app.ErrorLog.Print((err.Error()))
-			http.Error(res, "Internal Server Error", 500)
+			serverError(app, res, err) // Use serverError from helpers.go
 			return
 		}
 
 		err = templateSet.ExecuteTemplate(res, "base", nil)
 		if err != nil {
-			app.ErrorLog.Print((err.Error()))
-			http.Error(res, "Internal Server Error", 500)
-			return
+			serverError(app, res, err) // Use serverError from helpers.go
 		}
 	}
 }
 
+// Register handler
 func Register(app *config.Application) http.HandlerFunc {
 	return func(res http.ResponseWriter, req *http.Request) {
 		files := []string{
@@ -73,16 +69,13 @@ func Register(app *config.Application) http.HandlerFunc {
 
 		templateSet, err := template.ParseFiles(files...)
 		if err != nil {
-			app.ErrorLog.Print((err.Error()))
-			http.Error(res, "Internal Server Error", 500)
+			serverError(app, res, err) // Use serverError from helpers.go
 			return
 		}
 
 		err = templateSet.ExecuteTemplate(res, "base", nil)
 		if err != nil {
-			app.ErrorLog.Print((err.Error()))
-			http.Error(res, "Internal Server Error", 500)
-			return
+			serverError(app, res, err) // Use serverError from helpers.go
 		}
 	}
 }
