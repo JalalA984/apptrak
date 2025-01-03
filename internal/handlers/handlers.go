@@ -15,7 +15,7 @@ func ping(res http.ResponseWriter, _ *http.Request) {
 func Home(app *config.Application) http.HandlerFunc {
 	return func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.Path != "/" {
-			http.NotFound(res, req)
+			notFound(app, res)
 			return
 		}
 
