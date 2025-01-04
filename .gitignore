@@ -26,3 +26,5 @@ go.work.sum
 
 # MY GO app build
 cmd/apptrak/app
+
+apptrak.sql
