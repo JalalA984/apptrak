@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/JalalA984/apptrak/internal/models"
 	"github.com/JalalA984/apptrak/pkg/config"
 	"github.com/joho/godotenv"
 
@@ -22,7 +23,6 @@ func main() {
 	godotenv.Load(".env")
 
 	port := flag.String("port", ":5000", "HTTP Network Address")
-
 	mysqlDSN := os.Getenv("DSN")
 	dsn := flag.String("dsn", mysqlDSN, "MySQL data source name")
 
@@ -42,6 +42,8 @@ func main() {
 	appConfig := &applicationConf{
 		ApplicationConfig: &config.ApplicationConfig{
 			ErrorLog: errorLog,
+			InfoLog: infoLog,
+			Applications: &models.ApplicationModel{DB: db},
 		},
 	}
 
