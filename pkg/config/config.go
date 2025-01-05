@@ -2,6 +2,6 @@ package config
 
 import "log"
 
-type Application struct {
+type ApplicationConfig struct {
 	ErrorLog *log.Logger
 }

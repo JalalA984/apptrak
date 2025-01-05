@@ -6,16 +6,16 @@ import (
 	"github.com/JalalA984/apptrak/internal/handlers"
 )
 
-func (appConfig *application) routes() *http.ServeMux {
+func (appConfig *applicationConf) routes() *http.ServeMux {
 
 	mux := http.NewServeMux()
 
 	fileServer := http.FileServer(http.Dir("./public/"))
 	mux.Handle("/public/", http.StripPrefix("/public", fileServer))
 
-	mux.HandleFunc("/", handlers.Home(appConfig.Application))
-	mux.HandleFunc("/login", handlers.Login(appConfig.Application))
-	mux.HandleFunc("/register", handlers.Register(appConfig.Application))
+	mux.HandleFunc("/", handlers.Home(appConfig.ApplicationConfig))
+	mux.HandleFunc("/login", handlers.Login(appConfig.ApplicationConfig))
+	mux.HandleFunc("/register", handlers.Register(appConfig.ApplicationConfig))
 
 	return mux
 

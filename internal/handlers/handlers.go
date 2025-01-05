@@ -12,7 +12,7 @@ func ping(res http.ResponseWriter, _ *http.Request) {
 }
 
 // Home handler with closure-based dependency injection
-func Home(app *config.Application) http.HandlerFunc {
+func Home(app *config.ApplicationConfig) http.HandlerFunc {
 	return func(res http.ResponseWriter, req *http.Request) {
 		if req.URL.Path != "/" {
 			notFound(app, res)
@@ -39,7 +39,7 @@ func Home(app *config.Application) http.HandlerFunc {
 }
 
 // Login handler
-func Login(app *config.Application) http.HandlerFunc {
+func Login(app *config.ApplicationConfig) http.HandlerFunc {
 	return func(res http.ResponseWriter, req *http.Request) {
 		files := []string{
 			"./internal/templates/base.tmpl.html",
@@ -60,7 +60,7 @@ func Login(app *config.Application) http.HandlerFunc {
 }
 
 // Register handler
-func Register(app *config.Application) http.HandlerFunc {
+func Register(app *config.ApplicationConfig) http.HandlerFunc {
 	return func(res http.ResponseWriter, req *http.Request) {
 		files := []string{
 			"./internal/templates/base.tmpl.html",

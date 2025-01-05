@@ -14,8 +14,8 @@ import (
 )
 
 // Define a wrapper around config.Application
-type application struct {
-	*config.Application
+type applicationConf struct {
+	*config.ApplicationConfig
 }
 
 func main() {
@@ -39,8 +39,8 @@ func main() {
 	// Make sure connection pool is closed before main terminates
 	defer db.Close()
 
-	appConfig := &application{
-		Application: &config.Application{
+	appConfig := &applicationConf{
+		ApplicationConfig: &config.ApplicationConfig{
 			ErrorLog: errorLog,
 		},
 	}
