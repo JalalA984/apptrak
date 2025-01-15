@@ -6,15 +6,15 @@ import (
 )
 
 type Application struct {
-	ID             int
-	Name           string
-	CompanyName    string
-	Position       string
-	Status         string
+	ID              int
+	Name            string
+	CompanyName     string
+	Position        string
+	Status          string
 	ApplicationDate time.Time
 	InterviewDate   *time.Time // Use a pointer for nullable dates
-	Notes          string
-	CreatedAt      time.Time
+	Notes           string
+	CreatedAt       time.Time
 }
 
 type ApplicationModel struct {

@@ -8,7 +8,7 @@ import (
 
 type ApplicationConfig struct {
 	ErrorLog *log.Logger
-	InfoLog *log.Logger
+	InfoLog  *log.Logger
 
 	Applications *models.ApplicationModel
 }

@@ -17,6 +17,9 @@ func (appConfig *applicationConf) routes() *http.ServeMux {
 	mux.HandleFunc("/login", handlers.Login(appConfig.ApplicationConfig))
 	mux.HandleFunc("/register", handlers.Register(appConfig.ApplicationConfig))
 
+	mux.HandleFunc("/application/view", handlers.ApplicationView(appConfig.ApplicationConfig))
+	mux.HandleFunc("/application/create", handlers.ApplicationCreate(appConfig.ApplicationConfig))
+
 	return mux
 
 }

@@ -41,8 +41,8 @@ func main() {
 
 	appConfig := &applicationConf{
 		ApplicationConfig: &config.ApplicationConfig{
-			ErrorLog: errorLog,
-			InfoLog: infoLog,
+			ErrorLog:     errorLog,
+			InfoLog:      infoLog,
 			Applications: &models.ApplicationModel{DB: db},
 		},
 	}

@@ -1,8 +1,11 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
+	"strconv"
 	"text/template"
+	"time"
 
 	"github.com/JalalA984/apptrak/pkg/config"
 )
@@ -77,5 +80,57 @@ func Register(app *config.ApplicationConfig) http.HandlerFunc {
 		if err != nil {
 			serverError(app, res, err) // Use serverError from helpers.go
 		}
+	}
+}
+
+func ApplicationView(app *config.ApplicationConfig) http.HandlerFunc {
+	return func(res http.ResponseWriter, req *http.Request) {
+		// Extract the 'id' query parameter
+		idParam := req.URL.Query().Get("id")
+		if idParam == "" {
+			clientError(app, res, http.StatusBadRequest)
+			return
+		}
+
+		// Convert 'id' to an integer
+		id, err := strconv.Atoi(idParam)
+		if err != nil {
+			clientError(app, res, http.StatusBadRequest)
+			return
+		}
+
+		fmt.Fprintf(res, "Display a specific snippet with ID %d...\n", id)
+
+	}
+}
+
+// Function creates an application and adds it to database
+func ApplicationCreate(app *config.ApplicationConfig) http.HandlerFunc {
+	return func(res http.ResponseWriter, req *http.Request) {
+
+		if req.Method != http.MethodPost {
+			res.Header().Set("Allow", http.MethodPost)
+			clientError(app, res, http.StatusMethodNotAllowed)
+			return
+		}
+
+		// Dummy values for the application record
+		name := "TestApp"
+		companyName := "SomeCorp"
+		position := "Software Engineer"
+		status := "Applied"
+		applicationDate := time.Now() // Current time as the application date
+		var interviewDate *time.Time  // No interview date provided
+		notes := "Excited about the opportunity!"
+
+		// Insert the dummy application record
+		id, err := app.Applications.Insert(name, companyName, position, status, applicationDate, interviewDate, notes)
+		if err != nil {
+			serverError(app, res, err)
+			return
+		}
+
+		// Redirect to a view page for the newly created application
+		http.Redirect(res, req, fmt.Sprintf("/application/view?id=%d", id), http.StatusSeeOther)
 	}
 }
