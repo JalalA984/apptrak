@@ -1,12 +1,14 @@
 package handlers
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 	"strconv"
 	"text/template"
 	"time"
 
+	"github.com/JalalA984/apptrak/internal/models"
 	"github.com/JalalA984/apptrak/pkg/config"
 )
 
@@ -85,21 +87,24 @@ func Register(app *config.ApplicationConfig) http.HandlerFunc {
 
 func ApplicationView(app *config.ApplicationConfig) http.HandlerFunc {
 	return func(res http.ResponseWriter, req *http.Request) {
-		// Extract the 'id' query parameter
-		idParam := req.URL.Query().Get("id")
-		if idParam == "" {
-			clientError(app, res, http.StatusBadRequest)
+		id, err := strconv.Atoi(req.URL.Query().Get("id"))
+		if err != nil || id < 1 {
+			notFound(app, res)
 			return
 		}
 
-		// Convert 'id' to an integer
-		id, err := strconv.Atoi(idParam)
+		application, err := app.Applications.Get(id)
 		if err != nil {
-			clientError(app, res, http.StatusBadRequest)
+			if errors.Is(err, models.ErrNoRecord) {
+				notFound(app, res)
+			} else {
+				serverError(app, res, err)
+			}
 			return
 		}
 
-		fmt.Fprintf(res, "Display a specific snippet with ID %d...\n", id)
+		// Write the snippet data as a plain-text HTTP response body.
+		fmt.Fprintf(res, "%+v", application)
 
 	}
 }
