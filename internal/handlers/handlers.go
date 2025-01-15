@@ -24,22 +24,34 @@ func Home(app *config.ApplicationConfig) http.HandlerFunc {
 			return
 		}
 
-		files := []string{
-			"./internal/templates/base.tmpl.html",
-			"./internal/templates/components/navbar.tmpl.html",
-			"./internal/templates/home.tmpl.html",
-		}
-
-		templateSet, err := template.ParseFiles(files...)
+		apps, err := app.Applications.Latest()
 		if err != nil {
-			serverError(app, res, err) // Use serverError from helpers.go
+			serverError(app, res, err)
 			return
 		}
 
-		err = templateSet.ExecuteTemplate(res, "base", nil)
-		if err != nil {
-			serverError(app, res, err) // Use serverError from helpers.go
+		for _, application := range apps {
+			fmt.Fprintf(res, "%+v\n", application)
 		}
+
+		/*
+			files := []string{
+				"./internal/templates/base.tmpl.html",
+				"./internal/templates/components/navbar.tmpl.html",
+				"./internal/templates/home.tmpl.html",
+			}
+
+			templateSet, err := template.ParseFiles(files...)
+			if err != nil {
+				serverError(app, res, err) // Use serverError from helpers.go
+				return
+			}
+
+			err = templateSet.ExecuteTemplate(res, "base", nil)
+			if err != nil {
+				serverError(app, res, err) // Use serverError from helpers.go
+			}
+		*/
 	}
 }
 
