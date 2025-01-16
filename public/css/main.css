@@ -1,4 +1,11 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Jost:wght@400;500;600&display=swap');
+@font-face {
+    font-family: 'CustomAzonix';
+    src: url('/public/fonts/Azonix.otf') format('opentype'); /* Use 'opentype' for .otf files */
+    font-weight: normal;
+    font-style: normal;
+}
+  
 spline-viewer {
 width: 100%;
 height: 100%;
@@ -26,3 +33,56 @@ transition: background-color 0.3s ease;
 background-color: #005ae6;
 }
 
+/* Centered loading spinner */
+.loading-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100vh;
+background-color: #ffffff; /* Optional: match the page's background color */
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 1000; /* Ensure it's above all other content */
+}
+
+.loading-spinner {
+border: 4px solid #f3f3f3; /* Light border */
+border-top: 4px solid #3498db; /* Blue border */
+border-radius: 50%;
+width: 40px;
+height: 40px;
+animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+0% {
+    transform: rotate(0deg);
+}
+100% {
+    transform: rotate(360deg);
+}
+}
+
+/* main.css */
+
+body {
+    font-family: 'Inter', 'Jost', sans-serif;
+    background-color: #DADFFC; /* Your background color */
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1 {
+    font-family: 'CustomAzonix', sans-serif; /* Fallback to sans-serif if the font fails to load */
+  }
+
+  h2, h3 {
+    font-family: 'Jost', sans-serif;
+  }
+  
+  p, span, div {
+    font-family: 'Inter', sans-serif;
+  }
+  

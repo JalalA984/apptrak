@@ -4,13 +4,25 @@
   src="https://unpkg.com/@splinetool/viewer@1.9.59/build/spline-viewer.js"
 ></script>
 
+<div id="loading" class="loading-overlay">
+  <div class="loading-spinner"></div>
+</div>
+
 <spline-viewer
+  id="splineViewer"
   hint
   loading-anim-type="spinner-big-light"
   url="https://prod.spline.design/snxqxX3yz5vvS83q/scene.splinecode"
 ></spline-viewer>
-<form action="/login">
-<button class="get-started-btn" onclick="">Get Started</button>
-</form>
 
+<a class="get-started-btn" href="/login">Get Started</a>
+
+<script>
+  setTimeout(() => {
+    const loadingDiv = document.getElementById("loading");
+    if (loadingDiv) {
+      loadingDiv.style.display = "none";
+    }
+  }, 1000);
+</script>
 {{end}}
