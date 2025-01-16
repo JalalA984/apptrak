@@ -113,8 +113,25 @@ func ApplicationView(app *config.ApplicationConfig) http.HandlerFunc {
 			return
 		}
 
+		files := []string{
+			"./internal/templates/base.tmpl.html",
+			"./internal/templates/components/navbar.tmpl.html",
+			"./internal/templates/view.tmpl.html",
+		}
+
+		ts, err := template.ParseFiles(files...)
+		if err != nil {
+			serverError(app, res, err)
+			return
+		}
+
+		err = ts.ExecuteTemplate(res, "base", application)
+		if err != nil {
+			serverError(app, res, err)
+		}
+
 		// Write the snippet data as a plain-text HTTP response body.
-		fmt.Fprintf(res, "%+v", application)
+		// fmt.Fprintf(res, "%+v", application)
 
 	}
 }

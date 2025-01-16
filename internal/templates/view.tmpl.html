@@ -1,0 +1,18 @@
+{{define "title"}}Application #{{.ID}}{{end}}
+
+{{define "main"}}
+<div class="application-details">
+  <h1>Application #{{.ID}}</h1>
+
+  <div class="application-info">
+    <p><strong>Name:</strong> {{.Name}}</p>
+    <p><strong>Company Name:</strong> {{.CompanyName}}</p>
+    <p><strong>Position:</strong> {{.Position}}</p>
+    <p><strong>Status:</strong> {{.Status}}</p>
+    <p><strong>Application Date:</strong> {{.ApplicationDate}}</p>
+    <p><strong>Interview Date:</strong> {{.InterviewDate}}</p>
+    <p><strong>Notes:</strong> {{.Notes}}</p>
+    <p><strong>Created At:</strong> {{.CreatedAt}}</p>
+  </div>
+</div>
+{{end}}
