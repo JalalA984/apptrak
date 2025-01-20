@@ -1,0 +1,42 @@
+services:
+  # Go application service
+  apptrak:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Path to your Dockerfile
+    container_name: apptrak
+    ports:
+      - "5000:5000"  # Expose port 5000 (or your desired port)
+    environment:
+      - DSN=${DSN}  # Updated DSN for MySQL service
+    depends_on:
+      - db
+    networks:
+      - apptrak-network
+    restart: unless-stopped
+
+  # MySQL service
+  db:
+    image: mysql:8.0
+    container_name: apptrak-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}  # This ensures the database is created
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"  # Expose MySQL port
+    volumes:
+      - ./pkg/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+    networks:
+      - apptrak-network
+    restart: unless-stopped
+
+networks:
+  apptrak-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local

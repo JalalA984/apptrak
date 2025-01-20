@@ -1,5 +1,5 @@
 -- Create a new UTF-8 `apptrak` database.
-CREATE DATABASE apptrak CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- CREATE DATABASE apptrak CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- Switch to using the `apptrak` database.
 USE apptrak;
