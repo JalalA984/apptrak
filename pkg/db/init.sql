@@ -28,3 +28,8 @@ VALUES
     ('Data Analyst Application', 'DataInsights', 'Data Analyst', 'Interview', '2024-12-20', '2025-01-05', 'Phone screen went well; waiting for next steps.'),
     ('Graduate Program Application', 'Top University', 'Computer Science Graduate Program', 'Rejected', '2024-11-15', NULL, 'Rejected due to limited spots; considering reapplying next year.');
 
+
+-- TEST RECORD
+INSERT INTO applications (name, company_name, position, status, application_date, interview_date, notes) 
+VALUES 
+    ('TEST1', 'test', 'Software Engineer', 'Applied', '2025-01-01', NULL, 'Excited about their cutting-edge projects.');
