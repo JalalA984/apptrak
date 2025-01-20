@@ -10,7 +10,8 @@ services:
     environment:
       - DSN=${DSN}  # Updated DSN for MySQL service
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - apptrak-network
     restart: unless-stopped
@@ -21,17 +22,22 @@ services:
     container_name: apptrak-db
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}  # This ensures the database is created
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
-      - "3306:3306"  # Expose MySQL port
+      - "3306:3306"
     volumes:
       - ./pkg/db/init.sql:/docker-entrypoint-initdb.d/init.sql
-
     networks:
       - apptrak-network
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "--silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
 
 networks:
   apptrak-network:
